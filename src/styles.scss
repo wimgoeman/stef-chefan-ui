@@ -1,1 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+// Basic vars: 
+$ugly-orange: #e36600; 
+$ugly-green: #2f8729;
+$ugly-blue:  #10375c;
+
+$body-bg: $ugly-green;
+$body-color: $ugly-blue;
+
+$theme-colors: (
+  "primary": $ugly-orange,
+  "danger": #ff4136
+);
+
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+h1 {
+    color: $ugly-orange;
+    -webkit-text-stroke: 2px $ugly-blue;
+}

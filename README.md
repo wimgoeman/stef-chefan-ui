@@ -1,4 +1,8 @@
-# StefChefanUi
+# Stef Chefan
+
+Web UI to order food at the famous Stef Chefan Foodtruck.
+
+This project is a joke, and thrown together in an unprofessional fashion without caring about any good practices.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.8.
 
