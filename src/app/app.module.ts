@@ -1,16 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PickupsComponent } from './pickups/pickups.component';
+import { PickupFormComponent } from './pickup-form/pickup-form.component';
+import { MomentDateAdapter } from './moment-date-adapter';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PickupsComponent
+    PickupFormComponent
   ],
   imports: [
     BrowserModule,
@@ -18,7 +19,12 @@ import { PickupsComponent } from './pickups/pickups.component';
     NgbModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: NgbDateAdapter,
+      useClass: MomentDateAdapter
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

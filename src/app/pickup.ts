@@ -1,8 +1,8 @@
-import { Moment } from 'moment'
+import * as moment from 'moment'
 
 export class Pickup {
-    id: string
-    picker: string
-    date: Moment
-    status: number
+    id = ''
+    picker = ''
+    date = moment()
+    status = 0
 }

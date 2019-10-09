@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PickupsComponent } from './pickups.component';
+import { PickupFormComponent } from './pickup-form.component';
 
-describe('PickupsComponent', () => {
-  let component: PickupsComponent;
-  let fixture: ComponentFixture<PickupsComponent>;
+describe('PickupFormComponent', () => {
+  let component: PickupFormComponent;
+  let fixture: ComponentFixture<PickupFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PickupsComponent ]
+      declarations: [ PickupFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PickupsComponent);
+    fixture = TestBed.createComponent(PickupFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

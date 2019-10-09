@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { PickupsComponent } from './pickups/pickups.component';
+import { PickupFormComponent } from './pickup-form/pickup-form.component';
 
 
 const routes: Routes = [
   {
     path: 'pickups',
-    component: PickupsComponent
+    component: PickupFormComponent
   },
   {
     path: '',
