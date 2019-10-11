@@ -1,25 +1,26 @@
-<h2>Create/edit pickup</h2>
 <form #pickupForm="ngForm">
     <div class="d-flex d-flex-row">
         <div class="p-2">
-            <ngb-datepicker #dp [(ngModel)]="pickup.date" name="date"></ngb-datepicker>
+            <ngb-datepicker #dp [(ngModel)]="pickupFormData.date" name="date"></ngb-datepicker>
         </div>
         <div class="flex-fill">
             <div class="form-group">
                 <label for="picker">Name</label>
-                <input type="text" class="form-control" name="picker" id="picker" required [(ngModel)]="pickup.picker">
+                <input type="text" class="form-control" name="picker" id="picker" [readonly]="submitted" required [(ngModel)]="pickupFormData.picker">
             </div>
 
             <div class="form-group">
                 <label for="status">Status</label>
-                <input type="text" class="form-control" id="status" name="status" [(ngModel)]="pickup.status">
+                <input type="text" class="form-control" name="status" id="status" [readonly]="submitted" [(ngModel)]="pickupFormData.status">
+            </div>
+            <div class="form-group">
+                <button *ngIf="!submitted" (click)="onSave()" class="btn btn-primary">Save</button>
+                <button *ngIf="submitted" (click)="onEdit()" class="btn btn-primary">Edit</button>
             </div>
         </div>
     </div>
     <div class="d-flex d-flex-row">
-        <div class="form-group">
-            <button type="submit" class="btn btn-success">Submit</button>
-        </div>
+
     </div>
 </form>
 <h2>Orders</h2>

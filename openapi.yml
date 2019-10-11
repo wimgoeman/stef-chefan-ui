@@ -152,7 +152,6 @@ components:
         status:
           type: integer
       required:
-        - id
         - picker
         - date
   parameters:

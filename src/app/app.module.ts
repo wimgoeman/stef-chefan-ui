@@ -33,7 +33,7 @@ import { DefaultService, Configuration } from 'api-generated';
     },
     {
       provide: DefaultService,
-      useFactory: (httpClient: HttpClient) => new DefaultService(httpClient, "somePat", new Configuration({})),
+      useFactory: (httpClient: HttpClient) => new DefaultService(httpClient, "http://localhost:8080", new Configuration({})),
       deps: [HttpClient]
     }
   ],

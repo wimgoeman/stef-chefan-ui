@@ -9,24 +9,30 @@ import { DefaultService, Pickup } from 'api-generated';
   styleUrls: ['./pickup-form.component.scss']
 })
 export class PickupFormComponent implements OnInit {
+  @Input() private pickupFormData: PickupFormData;
+  private submitted = true
 
-  @Input() apiPickup: Pickup;
-  private pickup: PickupFormData;
-  private submitted = false
-
-  constructor() { 
+  constructor(private defaultService: DefaultService) { 
   }
 
-  onSubmit() {
-    this.submitted = true
+  onSave() {
+    const pickup : Pickup = {
+      date: this.pickupFormData.date.toISOString(),
+      picker: this.pickupFormData.picker,
+    }
+    this.defaultService.apiV1PickupsPost(pickup, 'body').subscribe({
+      next: (pickup) => {
+        this.pickupFormData.overwriteWith(pickup)
+      }
+    });
+  }
+
+  onEdit() {
+    console.log("edit");
+    this.submitted = false
   }
 
   ngOnInit(): void {
-    this.pickup = new PickupFormData();
-    if (this.apiPickup != null) {
-      this.pickup.date = moment(this.apiPickup.date)
-      this.pickup.picker = this.apiPickup.picker
-      this.pickup.status = this.apiPickup.status
-    }
+    this.submitted = true
   }
 }

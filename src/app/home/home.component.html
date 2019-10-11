@@ -1,3 +1,4 @@
-<p>home works!</p>
-<app-pickup-form *ngIf="pickup != null" (apiPickup)="pickup" ></app-pickup-form>
-<app-pickup-form *ngIf="pickup == null" (apiPickup)="null" ></app-pickup-form>
+<app-pickup-form *ngIf="pickupData != null" [(pickupFormData)]="pickupData" ></app-pickup-form>
+<div *ngIf="pickupData == null">
+    <button class="btn btn-primary" (click)="onCreate()">Create a pickup for today</button>
+</div>
