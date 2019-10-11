@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PickupFormComponent } from './pickup-form/pickup-form.component';
+import { HomeComponent } from './home/home.component';
 
 
 const routes: Routes = [
   {
-    path: 'pickups',
-    component: PickupFormComponent
+    path: 'home',
+    component: HomeComponent
   },
   {
     path: '',
-    redirectTo: '/pickups',
+    redirectTo: '/home',
     pathMatch: 'full'
   }
 ];

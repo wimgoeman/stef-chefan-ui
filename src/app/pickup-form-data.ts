@@ -1,6 +1,6 @@
 import * as moment from 'moment'
 
-export class Pickup {
+export class PickupFormData {
     id = ''
     picker = ''
     date = moment()

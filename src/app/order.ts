@@ -1,6 +1,5 @@
-export class Order {
+export class OrderFormData {
     id: string
     eater: string
-    //items: OrderItem[]
     price: number
 }

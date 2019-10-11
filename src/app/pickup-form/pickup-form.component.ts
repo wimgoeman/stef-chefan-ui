@@ -1,27 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { Pickup } from '../pickup';
+import { Component, OnInit, Input } from '@angular/core';
+import { PickupFormData } from '../pickup-form-data';
 import * as moment from 'moment';
+import { DefaultService, Pickup } from 'api-generated';
 
 @Component({
   selector: 'app-pickup-form',
   templateUrl: './pickup-form.component.html',
   styleUrls: ['./pickup-form.component.scss']
 })
-export class PickupFormComponent {
+export class PickupFormComponent implements OnInit {
 
-  pickup: Pickup;
-  //orders: Order[];
-  submitted = false
+  @Input() apiPickup: Pickup;
+  private pickup: PickupFormData;
+  private submitted = false
 
   constructor() { 
-    this.pickup = new Pickup();
-    this.pickup.date = moment()
-    this.pickup.id = '123456-egwguh'
-    this.pickup.picker = 'Michael Jackson'
-    this.pickup.status = 0
   }
 
   onSubmit() {
     this.submitted = true
+  }
+
+  ngOnInit(): void {
+    this.pickup = new PickupFormData();
+    if (this.apiPickup != null) {
+      this.pickup.date = moment(this.apiPickup.date)
+      this.pickup.picker = this.apiPickup.picker
+      this.pickup.status = this.apiPickup.status
+    }
   }
 }

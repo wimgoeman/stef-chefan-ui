@@ -1,0 +1,170 @@
+openapi: 3.0.0
+info:
+  title: Stef-Chefan
+  version: '1.0'
+servers:
+  - url: 'http://localhost:8080'
+paths:
+  /api/v1/pickups:
+    get:
+      summary: List existing pickups
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pickup'
+    post:
+      summary: Create new pickup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pickup'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pickup'
+  /api/v1/pickups/{pickupID}:
+    parameters:
+      - $ref : '#/components/parameters/pickupID'
+    put:
+      summary: Update pickup
+      responses: 
+        '200':
+          description: OK
+  /api/v1/pickups/{pickupID}/orders:
+    parameters:
+      - $ref : '#/components/parameters/pickupID'
+    get:
+      summary: List orders of the pickup
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+    post:
+      summary: Create anorder on the given pickup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+  /api/v1/pickups/{pickupID}/orders/{orderID}:
+    parameters:
+      - $ref : '#/components/parameters/pickupID'
+      - $ref : '#/components/parameters/orderID'
+    put:
+      summary: Update order
+      responses:         
+        '200':
+          description: OK
+  /api/v1/products:
+    get:
+      summary: List available products
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+components:
+  schemas:
+    Product:
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        price:
+          type: number
+        ingredients:
+          type: array
+          items:
+            type: string
+      required:
+        - id
+    OrderItem:
+      properties:
+        product:
+          $ref: '#/components/schemas/Product'
+        count:
+          type: integer
+        comment:
+          type: string
+      required:
+        - product
+        - count
+    Order:
+      properties:
+        id:
+          type: string
+        eater:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+        price:
+          type: number
+        payed:
+          type: boolean
+      required:
+        - id
+        - eater
+        - items
+    Pickup:
+      properties:
+        id:
+          type: string
+          format: uuid
+        picker:
+          type: string
+        date:
+          type: string
+          format: date
+        orders:
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+        status:
+          type: integer
+      required:
+        - id
+        - picker
+        - date
+  parameters:
+    pickupID:
+      name: pickupID
+      in: path
+      required: true
+      schema:
+        type: string
+    orderID:
+      name: orderID
+      in: path
+      required: true
+      schema:
+        type: string
