@@ -5,7 +5,7 @@ export class PickupFormData {
     id = ''
     picker = ''
     date = moment()
-    status = 0
+    status = 'Open'
 
     constructor() {}
     overwriteWith(pickup: Pickup) {
@@ -14,5 +14,4 @@ export class PickupFormData {
         this.date = moment(pickup.date);
         this.status = pickup.status;
     }
-
 }

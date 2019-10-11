@@ -10,7 +10,7 @@ import { DefaultService, Pickup } from 'api-generated';
 })
 export class PickupFormComponent implements OnInit {
   @Input() private pickupFormData: PickupFormData;
-  private submitted = true
+  private submitted: boolean
 
   constructor(private defaultService: DefaultService) { 
   }
@@ -21,18 +21,16 @@ export class PickupFormComponent implements OnInit {
       picker: this.pickupFormData.picker,
     }
     this.defaultService.apiV1PickupsPost(pickup, 'body').subscribe({
-      next: (pickup) => {
-        this.pickupFormData.overwriteWith(pickup)
-      }
+      next: (pickup) => this.processSaveResult(pickup)
     });
   }
 
-  onEdit() {
-    console.log("edit");
-    this.submitted = false
+  processSaveResult(pickup: Pickup) {
+    this.pickupFormData.overwriteWith(pickup)
+    this.submitted = true
   }
 
   ngOnInit(): void {
-    this.submitted = true
+    this.submitted = false
   }
 }
