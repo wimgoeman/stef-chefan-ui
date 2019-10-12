@@ -1,4 +1,4 @@
-<form #pickupForm="ngForm">
+<form *ngIf="!loading" #pickupForm="ngForm">
     <div class="d-flex d-flex-row">
         <div class="p-2">
             <ngb-datepicker #dp [(ngModel)]="pickupFormData.date" name="date"></ngb-datepicker>
@@ -6,15 +6,17 @@
         <div class="flex-fill">
             <div class="form-group">
                 <label for="picker">Name</label>
-                <input type="text" class="form-control" name="picker" id="picker" [readonly]="submitted" required [(ngModel)]="pickupFormData.picker">
+                <input type="text" class="form-control" name="picker" id="picker" [readonly]="!creating" required
+                    [(ngModel)]="pickupFormData.picker">
             </div>
 
             <div class="form-group">
                 <label for="status">Status</label>
-                <input type="text" class="form-control" name="status" id="status" [readonly]="submitted" [(ngModel)]="pickupFormData.status">
+                <input type="text" class="form-control" name="status" id="status" [readonly]="!creating"
+                    [(ngModel)]="pickupFormData.status">
             </div>
             <div class="form-group">
-                <button *ngIf="!submitted" (click)="onSave()" class="btn btn-primary">Save</button>
+                <button *ngIf="creating" (click)="onSave()" class="btn btn-primary">Save</button>
             </div>
         </div>
     </div>
@@ -22,4 +24,23 @@
 
     </div>
 </form>
-<h2>Orders</h2>
+<div *ngIf="!creating">
+    <h2>Orders</h2>
+    <a class="btn btn-primary" [routerLink]="['']">Place order</a>
+    <div class="row">
+        <div class="col-md-12">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Eater</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let orderFormData of ordersFormData">
+                        <td>{{orderFormData.eater}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

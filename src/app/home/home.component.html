@@ -1,4 +1,1 @@
-<app-pickup-form *ngIf="pickupData != null" [(pickupFormData)]="pickupData" ></app-pickup-form>
-<div *ngIf="pickupData == null">
-    <button class="btn btn-primary" (click)="onCreate()">Create a pickup for today</button>
-</div>
+<a class="btn btn-primary" [routerLink]="['/pickups', 'new']">Create a pickup for today</a>

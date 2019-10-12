@@ -10,6 +10,10 @@ const routes: Routes = [
     component: HomeComponent
   },
   {
+    path: 'pickups/:id',
+    component: PickupFormComponent
+  },
+  {
     path: '',
     redirectTo: '/home',
     pathMatch: 'full'
