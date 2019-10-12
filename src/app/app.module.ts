@@ -11,12 +11,14 @@ import { MomentDateAdapter } from './moment-date-adapter';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { DefaultService, Configuration } from 'api-generated';
+import { OrderFormComponent } from './order-form/order-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PickupFormComponent,
-    HomeComponent
+    HomeComponent,
+    OrderFormComponent
   ],
   imports: [
     BrowserModule,
