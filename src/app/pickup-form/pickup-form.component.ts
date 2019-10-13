@@ -14,7 +14,7 @@ export class PickupFormComponent implements OnInit {
   private pickupFormData: PickupFormData
   private loading = true
   private creating: boolean
-  private ordersFormData: Array<OrderFormData>
+  private ordersFormData: Array<OrderFormData> = []
 
   constructor(private defaultService: DefaultService, private router: Router, private route: ActivatedRoute) {
   }

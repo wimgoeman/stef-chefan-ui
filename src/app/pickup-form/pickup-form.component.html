@@ -23,9 +23,13 @@
             </div>
         </div>
     </div>
-    <div class="d-flex d-flex-row" *ngIf="!creating">
-        <h2>Orders</h2>
-        <a class="btn btn-primary" [routerLink]="['/pickups', pickupFormData.id, 'orders', 'new']">Place order</a>
+    <div class="d-flex d-flex-row align-items-center" *ngIf="!creating">
+        <div class="p-2">
+            <h2>Orders</h2>
+        </div>
+        <div class="flex-fill">
+            <a class="btn btn-primary" [routerLink]="['/pickups', pickupFormData.id, 'orders', 'new']">Place order</a>
+        </div>
     </div>
     <div class="d-flex d-flex-row" *ngIf="!creating">
         <div class="d-flex d-flex-row">
