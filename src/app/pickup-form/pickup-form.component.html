@@ -1,22 +1,14 @@
 <form *ngIf="!loading" #pickupForm="ngForm">
     <div class="d-flex d-flex-row">
-        <h2>Pickup information</h2>
+        <h2>Orders for {{pickupFormData.date.format('dddd MMMM Do')}} <span
+                class="badge badge-primary">{{pickupFormData.status}}</span></h2>
     </div>
     <div class="d-flex d-flex-row">
-        <div class="p-2">
-            <ngb-datepicker #dp [(ngModel)]="pickupFormData.date" name="date"></ngb-datepicker>
-        </div>
         <div class="flex-fill">
             <div class="form-group">
-                <label for="picker">Name</label>
+                <label for="picker">Pickup person</label>
                 <input type="text" class="form-control" name="picker" id="picker" [readonly]="!creating" required
                     [(ngModel)]="pickupFormData.picker">
-            </div>
-
-            <div class="form-group">
-                <label for="status">Status</label>
-                <input type="text" class="form-control" name="status" id="status" [readonly]="!creating"
-                    [(ngModel)]="pickupFormData.status">
             </div>
             <div class="form-group">
                 <button *ngIf="creating" (click)="onSave()" class="btn btn-primary">Save</button>
@@ -24,29 +16,26 @@
         </div>
     </div>
     <div class="d-flex d-flex-row align-items-center" *ngIf="!creating">
-        <div class="p-2">
-            <h2>Orders</h2>
-        </div>
-        <div class="flex-fill">
-            <a class="btn btn-primary" [routerLink]="['/pickups', pickupFormData.id, 'orders', 'new']">Place order</a>
-        </div>
     </div>
     <div class="d-flex d-flex-row" *ngIf="!creating">
-        <div class="d-flex d-flex-row">
-            <div class="col-md-12">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Eater</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let orderFormData of ordersFormData">
-                            <td>{{orderFormData.eater}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th>Eater</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let orderFormData of ordersFormData">
+                    <td>{{orderFormData.eater}}</td>
+                    <td>{{orderFormData.price}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="flex-fill p-2">
+        <a class="btn btn-primary" role="button" [routerLink]="['/pickups', pickupFormData.id, 'orders', 'new']">Place
+            order</a>
     </div>
 </form>
