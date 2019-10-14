@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { DefaultService, Pickup } from 'api-generated';
+import { Pickup } from 'api-generated';
 import * as moment from 'moment';
 import { PickupFormData } from '../pickup-form-data';
 import { Router } from '@angular/router';
+import { PickupsService } from 'api-generated/api/pickups.service';
 
 @Component({
   selector: 'app-home',
@@ -10,10 +11,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  constructor(private defaultService: DefaultService, private router: Router) { }
+  constructor(private pickupsService: PickupsService, private router: Router) { }
 
   ngOnInit() {
-    this.defaultService.apiV1PickupsGet().subscribe({
+    this.pickupsService.apiV1PickupsGet().subscribe({
       next: pickups => {
         console.log(`Got pickups: ${pickups}`)
         for (const pickup of pickups) {

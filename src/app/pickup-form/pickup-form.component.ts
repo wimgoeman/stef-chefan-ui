@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { PickupFormData } from '../pickup-form-data';
 import * as moment from 'moment';
-import { DefaultService, Pickup } from 'api-generated';
+import { Pickup, PickupsService } from 'api-generated';
 import { OrderFormData } from '../order-form-data';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
@@ -16,7 +16,7 @@ export class PickupFormComponent implements OnInit {
   private creating: boolean
   private ordersFormData: Array<OrderFormData> = []
 
-  constructor(private defaultService: DefaultService, private router: Router, private route: ActivatedRoute) {
+  constructor(private pickupsService: PickupsService, private router: Router, private route: ActivatedRoute) {
   }
 
   onSave() {
@@ -24,12 +24,16 @@ export class PickupFormComponent implements OnInit {
       date: this.pickupFormData.date.toISOString(),
       picker: this.pickupFormData.picker,
     }
-    this.defaultService.apiV1PickupsPost(pickup, 'body').subscribe(
+    this.pickupsService.apiV1PickupsPost(pickup, 'body').subscribe(
       (pickup) => {
         this.pickupFormData.overwriteWith(pickup)
         this.router.navigateByUrl('/');
       }
     );
+  }
+
+  onClickRow(orderFormData: OrderFormData) {
+    this.router.navigate(['/pickups', this.pickupFormData.id, 'orders', orderFormData.id])
   }
 
   ngOnInit(): void {
@@ -41,22 +45,18 @@ export class PickupFormComponent implements OnInit {
         this.loading = false
       } else {
         this.creating = false;
-        this.defaultService.apiV1PickupsGet('body').subscribe((pickups: Array<Pickup>) => {
-          for (const pickup of pickups) {
-            if (pickup.id != id) continue;
+        this.pickupsService.apiV1PickupsPickupIDGet(id).subscribe((pickup: Pickup) => {
 
-            this.pickupFormData = new PickupFormData()
-            this.pickupFormData.overwriteWith(pickup)
-
-            this.defaultService.apiV1PickupsPickupIDOrdersGet(this.pickupFormData.id).subscribe((orders) => {
-              for (const order of orders) {
-                const orderFormData = new OrderFormData()
-                orderFormData.overwriteWith(order)
-                this.ordersFormData.push(orderFormData);
-              }
-              this.loading = false
-            })
-          }
+          this.pickupFormData = new PickupFormData()
+          this.pickupFormData.overwriteWith(pickup)
+          this.pickupsService.apiV1PickupsPickupIDOrdersGet(this.pickupFormData.id).subscribe((orders) => {
+            for (const order of orders) {
+              const orderFormData = new OrderFormData()
+              orderFormData.overwriteWith(order)
+              this.ordersFormData.push(orderFormData);
+            }
+            this.loading = false
+          })
         })
       }
     })

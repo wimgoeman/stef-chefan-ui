@@ -7,6 +7,7 @@ servers:
 paths:
   /api/v1/pickups:
     get:
+      tags: ['pickups']
       summary: List existing pickups
       responses:
         '200':
@@ -18,6 +19,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Pickup'
     post:
+      tags: ['pickups']
       summary: Create new pickup
       requestBody:
         content:
@@ -35,14 +37,31 @@ paths:
     parameters:
       - $ref : '#/components/parameters/pickupID'
     put:
+      tags: ['pickups']
       summary: Update pickup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pickup'
       responses: 
         '200':
           description: OK
+    get:
+      tags: ['pickups']
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pickup'
+
   /api/v1/pickups/{pickupID}/orders:
     parameters:
       - $ref : '#/components/parameters/pickupID'
     get:
+      tags: ['pickups']
       summary: List orders of the pickup
       responses:
         '200':
@@ -54,6 +73,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Order'
     post:
+      tags: ['pickups']
       summary: Create anorder on the given pickup
       requestBody:
         content:
@@ -72,14 +92,30 @@ paths:
       - $ref : '#/components/parameters/pickupID'
       - $ref : '#/components/parameters/orderID'
     put:
+      tags: ['pickups']
       summary: Update order
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
       responses:         
         '200':
           description: OK
+    get:
+      tags: ['pickups']
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+
   /api/v1/products:
     get:
+      tags: ['products']
       summary: List available products
-      tags: []
       responses:
         '200':
           description: OK
@@ -98,7 +134,7 @@ components:
         name:
           type: string
         price:
-          type: number
+          type: string
         ingredients:
           type: array
           items:
@@ -127,11 +163,10 @@ components:
           items:
             $ref: '#/components/schemas/OrderItem'
         price:
-          type: number
+          type: string
         payed:
           type: boolean
       required:
-        - id
         - eater
         - items
     Pickup:
@@ -144,11 +179,6 @@ components:
         date:
           type: string
           format: date
-        orders:
-          type: array
-          uniqueItems: true
-          items:
-            type: string
         status:
           type: string
       required:

@@ -1,7 +1,8 @@
 <form *ngIf="!loading" #pickupForm="ngForm">
-    <div class="d-flex d-flex-row">
-        <h2>Orders for {{pickupFormData.date.format('dddd MMMM Do')}} <span
-                class="badge badge-primary">{{pickupFormData.status}}</span></h2>
+    <div class="d-flex d-flex-row justify-content-between">
+        <h2>Pickup for {{pickupFormData.date.format('dddd MMMM Do')}}</h2>
+        <h2><span
+            class="badge badge-secondary">{{pickupFormData.status}}</span></h2>
     </div>
     <div class="d-flex d-flex-row">
         <div class="flex-fill">
@@ -23,19 +24,21 @@
                 <tr>
                     <th>Eater</th>
                     <th>Price</th>
+                    <th>Paid</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let orderFormData of ordersFormData">
+                <tr class="clickable" *ngFor="let orderFormData of ordersFormData" (click)="onClickRow(orderFormData)">
                     <td>{{orderFormData.eater}}</td>
                     <td>{{orderFormData.price}}</td>
+                    <td>{{orderFormData.paid ? 'yes' : 'no'}}</td>
                 </tr>
             </tbody>
         </table>
     </div>
 
     <div class="flex-fill p-2">
-        <a class="btn btn-primary" role="button" [routerLink]="['/pickups', pickupFormData.id, 'orders', 'new']">Place
+        <a class="btn btn-primary" *ngIf="!creating" role="button" [routerLink]="['/pickups', pickupFormData.id, 'orders', 'new']">Place
             order</a>
     </div>
 </form>

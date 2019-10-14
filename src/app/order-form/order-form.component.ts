@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { OrderFormData } from '../order-form-data';
-import { DefaultService, Order } from 'api-generated';
+import { PickupsService, ProductsService, Order, Product } from 'api-generated';
 
 @Component({
   selector: 'app-order-form',
@@ -13,20 +13,24 @@ export class OrderFormComponent implements OnInit {
   private loading = true
   private pickupId: string
   private orderId: string
+  private products: Array<Product>
 
-  constructor(private defaultService: DefaultService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private productsService: ProductsService, private pickupsService: PickupsService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       this.pickupId = paramMap.get("pickupId")
       this.orderId = paramMap.get("orderId")
+
+      // Load products
+      this.productsService.apiV1ProductsGet().subscribe((products) => {
+        this.products = products
+      }) 
+
       this.orderFormData = new OrderFormData()
       if (this.orderId != 'new') {
-        this.defaultService.apiV1PickupsPickupIDOrdersGet(this.pickupId).subscribe((orders: Array<Order>) => {
-          const order = orders.find((order) => order.id == this.orderId)
-          if (order) {
-            this.orderFormData.overwriteWith(order)
-          }
+        this.pickupsService.apiV1PickupsPickupIDOrdersOrderIDGet(this.pickupId, this.orderId).subscribe((order: Order) => {
+          this.orderFormData.overwriteWith(order)
           this.loading = false
         })
       } else {
@@ -41,8 +45,14 @@ export class OrderFormComponent implements OnInit {
       eater: this.orderFormData.eater,
       items: []
     }
-    this.defaultService.apiV1PickupsPickupIDOrdersPost(this.pickupId, order).subscribe(() => {
-      this.router.navigate(['/pickups', this.pickupId])
-    })
+    if (this.orderId == 'new') {
+      this.pickupsService.apiV1PickupsPickupIDOrdersPost(this.pickupId, order).subscribe(() => {
+        this.router.navigate(['/pickups', this.pickupId])
+      })
+    } else {
+      this.pickupsService.apiV1PickupsPickupIDOrdersOrderIDPut(this.pickupId, this.orderId, order).subscribe(() => {
+        this.router.navigate(['/pickups', this.pickupId])
+      })
+    }
   }
 }

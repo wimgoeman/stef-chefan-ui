@@ -10,8 +10,9 @@ import { PickupFormComponent } from './pickup-form/pickup-form.component';
 import { MomentDateAdapter } from './moment-date-adapter';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
-import { DefaultService, Configuration } from 'api-generated';
+import { Configuration } from 'api-generated';
 import { OrderFormComponent } from './order-form/order-form.component';
+import { PickupsService } from 'api-generated/api/pickups.service';
 
 @NgModule({
   declarations: [
@@ -34,8 +35,8 @@ import { OrderFormComponent } from './order-form/order-form.component';
       useClass: MomentDateAdapter
     },
     {
-      provide: DefaultService,
-      useFactory: (httpClient: HttpClient) => new DefaultService(httpClient, "http://localhost:8080", new Configuration({})),
+      provide: PickupsService,
+      useFactory: (httpClient: HttpClient) => new PickupsService(httpClient, "http://localhost:8080", new Configuration({})),
       deps: [HttpClient]
     }
   ],
