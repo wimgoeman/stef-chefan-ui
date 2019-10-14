@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { OrderFormData } from '../order-form-data';
+import { OrderFormData, OrderItemFormData } from '../order-form-data';
 import { PickupsService, ProductsService, Order, Product } from 'api-generated';
 
 @Component({
@@ -25,25 +25,36 @@ export class OrderFormComponent implements OnInit {
       // Load products
       this.productsService.apiV1ProductsGet().subscribe((products) => {
         this.products = products
-      }) 
 
-      this.orderFormData = new OrderFormData()
-      if (this.orderId != 'new') {
-        this.pickupsService.apiV1PickupsPickupIDOrdersOrderIDGet(this.pickupId, this.orderId).subscribe((order: Order) => {
-          this.orderFormData.overwriteWith(order)
+        this.orderFormData = new OrderFormData()
+        this.orderFormData.addProductEntries(products)
+        if (this.orderId != 'new') {
+          this.pickupsService.apiV1PickupsPickupIDOrdersOrderIDGet(this.pickupId, this.orderId).subscribe((order: Order) => {
+            this.orderFormData.overwriteWith(order)
+            this.loading = false
+          })
+        } else {
           this.loading = false
-        })
-      } else {
-        this.loading = false
-      }
+        }
+      })
     })
   }
 
   onSave() {
-    const order : Order = {
+    const order: Order = {
       id: this.orderId || null,
       eater: this.orderFormData.eater,
       items: []
+    }
+    for (const key of this.orderFormData.items.keys()) {
+      const orderItemFormData = this.orderFormData.items.get(key)
+      if (orderItemFormData.count > 0) {
+        order.items.push({
+          product: { id: orderItemFormData.productId },
+          count: orderItemFormData.count,
+          comment: orderItemFormData.comment,
+        })
+      }
     }
     if (this.orderId == 'new') {
       this.pickupsService.apiV1PickupsPickupIDOrdersPost(this.pickupId, order).subscribe(() => {
