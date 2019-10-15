@@ -8,7 +8,7 @@ import { ApiModule } from '../../api-generated/api.module';
 import { AppComponent } from './app.component';
 import { PickupFormComponent } from './pickup-form/pickup-form.component';
 import { MomentDateAdapter } from './moment-date-adapter';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { Configuration } from 'api-generated';
 import { OrderFormComponent } from './order-form/order-form.component';
@@ -19,6 +19,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { environment } from '../environments/environment';
 import { LoginComponent } from './login/login.component';
+import { JwtInterceptor } from './_helpers/jwt.interceptor';
 
 
 @NgModule({
@@ -49,6 +50,9 @@ import { LoginComponent } from './login/login.component';
       provide: PickupsService,
       useFactory: (httpClient: HttpClient) => new PickupsService(httpClient, "http://localhost:8080", new Configuration({})),
       deps: [HttpClient]
+    },
+    {
+      provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true 
     }
   ],
   bootstrap: [AppComponent]
