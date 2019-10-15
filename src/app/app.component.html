@@ -1,6 +1,11 @@
 <div class="container">
-  <a [routerLink]="'/'">
-    <h1>Stef Chefan</h1>
-  </a>
+  <div class="d-flex justify-content-between align-items-center">
+      <a [routerLink]="'/'">
+        <h1>Stef Chefan</h1>
+      </a>
+      <div>
+      <button *ngIf="authService.user" class="btn btn-primary" type="button" (click)="logout()">Log out</button>
+    </div>
+  </div>
   <router-outlet></router-outlet>
 </div>

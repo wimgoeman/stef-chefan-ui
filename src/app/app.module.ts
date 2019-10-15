@@ -14,12 +14,20 @@ import { Configuration } from 'api-generated';
 import { OrderFormComponent } from './order-form/order-form.component';
 import { PickupsService } from 'api-generated/api/pickups.service';
 
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
+import { environment } from '../environments/environment';
+import { LoginComponent } from './login/login.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
     PickupFormComponent,
     HomeComponent,
-    OrderFormComponent
+    OrderFormComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -27,9 +35,12 @@ import { PickupsService } from 'api-generated/api/pickups.service';
     NgbModule,
     AppRoutingModule,
     ApiModule,
-    HttpClientModule
-  ],
+    HttpClientModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule
+    ],
   providers: [
+    AngularFireAuthGuard,
     {
       provide: NgbDateAdapter,
       useClass: MomentDateAdapter
