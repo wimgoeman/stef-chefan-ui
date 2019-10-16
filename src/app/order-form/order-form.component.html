@@ -8,15 +8,15 @@
             <div class="form-group">
                 <label for="picker">Eater</label>
                 <input type="text" class="form-control" name="picker" id="picker" required
-                    [(ngModel)]="orderFormData.eater">
+                    readonly [(ngModel)]="orderFormData.eater">
             </div>
         </div>
     </div>
     <div class="d-flex d-flex-row">
         <h2>Menu</h2>
     </div>
-    <div class="row" *ngFor="let product of this.products">
-        <div class="col-md-6 p-3">
+    <div class="row mb-3" *ngFor="let product of this.products">
+        <div class="col-md-6">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">{{product.name}}</span>
@@ -24,11 +24,12 @@
                 <input name="order-item-{{product.id}}-count" type="number" class="form-control"
                     [(ngModel)]="orderFormData.items.get(product.id).count" />
             </div>
-        </div>
-        <div class="col-md-6 p-3">
-            <div class="input-group">
+            <div class="input-group mt-2">
                 <input name="order-item-{{product.id}}-comment" type="text" class="form-control" placeholder="Comment" [(ngModel)]="orderFormData.items.get(product.id).comment"  />
             </div>
+        </div>
+        <div class="col-md-6 mt-2">
+            <p>{{product.ingredients}}</p>
         </div>
     </div>
     <div class="d-flex d-flex-row">

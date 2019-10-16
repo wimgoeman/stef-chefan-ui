@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { OrderFormData, OrderItemFormData } from '../order-form-data';
 import { PickupsService, ProductsService, Order, Product } from 'api-generated';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-order-form',
@@ -16,7 +17,7 @@ export class OrderFormComponent implements OnInit {
   public products: Array<Product>
   public error: string = null
 
-  constructor(private productsService: ProductsService, private pickupsService: PickupsService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private authService: AuthService, private productsService: ProductsService, private pickupsService: PickupsService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -40,6 +41,7 @@ export class OrderFormComponent implements OnInit {
               console.error(error.message)
             })
         } else {
+          this.orderFormData.eater = this.authService.user.displayName
           this.loading = false
         }
       })
