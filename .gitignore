@@ -3,6 +3,10 @@
 # generated
 api-generated
 
+# firebase local config
+.firebaserc
+.firebase
+
 # compiled output
 /dist
 /tmp

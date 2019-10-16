@@ -9,12 +9,12 @@ import { PickupsService, ProductsService, Order, Product } from 'api-generated';
   styleUrls: ['./order-form.component.scss']
 })
 export class OrderFormComponent implements OnInit {
-  private orderFormData: OrderFormData
-  private loading = true
-  private pickupId: string
-  private orderId: string
-  private products: Array<Product>
-  private error: string = null
+  public orderFormData: OrderFormData
+  public loading = true
+  public pickupId: string
+  public orderId: string
+  public products: Array<Product>
+  public error: string = null
 
   constructor(private productsService: ProductsService, private pickupsService: PickupsService, private router: Router, private route: ActivatedRoute) { }
 

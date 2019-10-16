@@ -11,11 +11,11 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
   styleUrls: ['./pickup-form.component.scss']
 })
 export class PickupFormComponent implements OnInit {
-  private pickupFormData: PickupFormData
-  private loading = true
-  private creating: boolean
-  private ordersFormData: Array<OrderFormData> = []
-  private error: string = null
+  public pickupFormData: PickupFormData
+  public loading = true
+  public creating: boolean
+  public ordersFormData: Array<OrderFormData> = []
+  public error: string = null
 
   constructor(private pickupsService: PickupsService, private router: Router, private route: ActivatedRoute) {
   }

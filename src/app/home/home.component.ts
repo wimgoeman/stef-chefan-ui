@@ -11,7 +11,7 @@ import { PickupsService } from 'api-generated/api/pickups.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  private error: string = null
+  public error: string = null
 
   constructor(private pickupsService: PickupsService, private router: Router) { }
 
