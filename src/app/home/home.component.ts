@@ -18,7 +18,6 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.pickupsService.apiV1PickupsGet().subscribe({
       next: pickups => {
-        console.log(`Got pickups: ${pickups}`)
         for (const pickup of pickups) {
           if (moment(pickup.date).isSame(moment(), 'day') && pickup.id) {
             this.router.navigate(['/pickups', pickup.id])
@@ -26,7 +25,7 @@ export class HomeComponent implements OnInit {
         }
       },
       error: err => {
-        console.log(err.message)
+        console.error(err.message)
         this.error = "Oops... something went wrong :("
       }
     })

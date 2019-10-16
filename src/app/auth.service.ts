@@ -59,17 +59,18 @@ export class AuthService {
     })
   }
 
-  doLogin(email: string, password: string) {
-    return new Observable<boolean>((observer) => {
-      this.afAuth.auth
-        .signInWithEmailAndPassword(email, password)
-        .then(res => {
-          observer.complete()
-          this.router.navigateByUrl("/")
-        }).catch(err => {
-          observer.next(true)
-          observer.complete()
-        })
-    })
-  }
+  // No email based login for now!
+  // doLogin(email: string, password: string) {
+  //   return new Observable<boolean>((observer) => {
+  //     this.afAuth.auth
+  //       .signInWithEmailAndPassword(email, password)
+  //       .then(res => {
+  //         observer.complete()
+  //         this.router.navigateByUrl("/")
+  //       }).catch(err => {
+  //         observer.next(true)
+  //         observer.complete()
+  //       })
+  //   })
+  // }
 }

@@ -37,7 +37,7 @@ export class OrderFormComponent implements OnInit {
             },
             (error) => {
               this.error = "Oops... something went wrong"
-              console.log(error)
+              console.error(error.message)
             })
         } else {
           this.loading = false
@@ -69,7 +69,7 @@ export class OrderFormComponent implements OnInit {
         },
         (error) => {
           this.error = "Oops... something went wrong :("
-          console.log(error.message)
+          console.error(error.message)
         })
 
     } else {
@@ -79,7 +79,7 @@ export class OrderFormComponent implements OnInit {
         },
         (error) => {
           this.error = "Oops... something went wrong :("
-          console.log(error.message)
+          console.error(error.message)
         })
     }
   }

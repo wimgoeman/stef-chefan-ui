@@ -3,7 +3,6 @@ import * as moment from 'moment';
 
 export class MomentDateAdapter implements NgbDateAdapter<moment.Moment> {
     fromModel(value: moment.Moment): NgbDateStruct {
-        console.log(`Converting from model: ${value}`)
         if (!value) {
             return null
         }
@@ -12,7 +11,6 @@ export class MomentDateAdapter implements NgbDateAdapter<moment.Moment> {
             month: value.month() + 1,
             year: value.year()
         }
-        console.log(`Created: ${result.day}-${result.month}-${result.year}`)
         return result
     }
     

@@ -15,11 +15,11 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) { }
 
-  onKeydown(event) {
-    if (event.key === "Enter") {
-      this.login()
-    }
-  }
+  // onKeydown(event) {
+  //   if (event.key === "Enter") {
+  //     this.login()
+  //   }
+  // }
 
   googleLogin() {
     this.authService.doGoogleLogin().subscribe((error) => {
@@ -27,11 +27,12 @@ export class LoginComponent {
     })
   }
 
-  login() {
-    this.authService.doLogin(this.email, this.password).subscribe((error) => {
-      this.error = "Failed to login"
-    })
-  }
+  // No email based login for now
+  // login() {
+  //   this.authService.doLogin(this.email, this.password).subscribe((error) => {
+  //     this.error = "Failed to login"
+  //   })
+  // }
 
 
 }
