@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: "http://localhost:8080",
+  apiUrl: "https://stef-chefan.appspot.com",
   firebase: {
     apiKey: "AIzaSyAoJYHZCuX_h006vrt1TrkaTcnuZ_4CJK0",
     authDomain: "stef-chefan.firebaseapp.com",
