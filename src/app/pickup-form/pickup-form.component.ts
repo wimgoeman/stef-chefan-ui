@@ -15,6 +15,7 @@ export class PickupFormComponent implements OnInit {
   private loading = true
   private creating: boolean
   private ordersFormData: Array<OrderFormData> = []
+  private error: string = null
 
   constructor(private pickupsService: PickupsService, private router: Router, private route: ActivatedRoute) {
   }
@@ -28,6 +29,10 @@ export class PickupFormComponent implements OnInit {
       (pickup) => {
         this.pickupFormData.overwriteWith(pickup)
         this.router.navigateByUrl('/');
+      },
+      (error) => {
+        console.error(error.message)
+        this.error = "Oops... something went wrong :("      
       }
     );
   }
@@ -45,19 +50,27 @@ export class PickupFormComponent implements OnInit {
         this.loading = false
       } else {
         this.creating = false;
-        this.pickupsService.apiV1PickupsPickupIDGet(id).subscribe((pickup: Pickup) => {
-
-          this.pickupFormData = new PickupFormData()
-          this.pickupFormData.overwriteWith(pickup)
-          this.pickupsService.apiV1PickupsPickupIDOrdersGet(this.pickupFormData.id).subscribe((orders) => {
-            for (const order of orders) {
-              const orderFormData = new OrderFormData()
-              orderFormData.overwriteWith(order)
-              this.ordersFormData.push(orderFormData);
-            }
-            this.loading = false
+        this.pickupsService.apiV1PickupsPickupIDGet(id).subscribe(
+          (pickup: Pickup) => {
+            this.pickupFormData = new PickupFormData()
+            this.pickupFormData.overwriteWith(pickup)
+            this.pickupsService.apiV1PickupsPickupIDOrdersGet(this.pickupFormData.id).subscribe((orders) => {
+              for (const order of orders) {
+                const orderFormData = new OrderFormData()
+                orderFormData.overwriteWith(order)
+                this.ordersFormData.push(orderFormData);
+              }
+              this.loading = false
+            },
+            (error) => {
+              console.error(error.message)
+              this.error = "Oops... something went wrong :("
+            })
+          },
+          (error) => {
+            console.error(error.message)
+            this.error = "Oops... something went wrong :("
           })
-        })
       }
     })
   }

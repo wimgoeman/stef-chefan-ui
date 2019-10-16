@@ -11,6 +11,8 @@ import { PickupsService } from 'api-generated/api/pickups.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  private error: string = null
+
   constructor(private pickupsService: PickupsService, private router: Router) { }
 
   ngOnInit() {
@@ -23,7 +25,10 @@ export class HomeComponent implements OnInit {
           }
         }
       },
-      error: err => console.error(err)
+      error: err => {
+        console.log(err.message)
+        this.error = "Oops... something went wrong :("
+      }
     })
   }
 

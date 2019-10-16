@@ -14,6 +14,7 @@ export class OrderFormComponent implements OnInit {
   private pickupId: string
   private orderId: string
   private products: Array<Product>
+  private error: string = null
 
   constructor(private productsService: ProductsService, private pickupsService: PickupsService, private router: Router, private route: ActivatedRoute) { }
 
@@ -29,10 +30,15 @@ export class OrderFormComponent implements OnInit {
         this.orderFormData = new OrderFormData()
         this.orderFormData.addProductEntries(products)
         if (this.orderId != 'new') {
-          this.pickupsService.apiV1PickupsPickupIDOrdersOrderIDGet(this.pickupId, this.orderId).subscribe((order: Order) => {
-            this.orderFormData.overwriteWith(order)
-            this.loading = false
-          })
+          this.pickupsService.apiV1PickupsPickupIDOrdersOrderIDGet(this.pickupId, this.orderId).subscribe(
+            (order: Order) => {
+              this.orderFormData.overwriteWith(order)
+              this.loading = false
+            },
+            (error) => {
+              this.error = "Oops... something went wrong"
+              console.log(error)
+            })
         } else {
           this.loading = false
         }
@@ -57,13 +63,24 @@ export class OrderFormComponent implements OnInit {
       }
     }
     if (this.orderId == 'new') {
-      this.pickupsService.apiV1PickupsPickupIDOrdersPost(this.pickupId, order).subscribe(() => {
-        this.router.navigate(['/pickups', this.pickupId])
-      })
+      this.pickupsService.apiV1PickupsPickupIDOrdersPost(this.pickupId, order).subscribe(
+        () => {
+          this.router.navigate(['/pickups', this.pickupId])
+        },
+        (error) => {
+          this.error = "Oops... something went wrong :("
+          console.log(error.message)
+        })
+
     } else {
-      this.pickupsService.apiV1PickupsPickupIDOrdersOrderIDPut(this.pickupId, this.orderId, order).subscribe(() => {
-        this.router.navigate(['/pickups', this.pickupId])
-      })
+      this.pickupsService.apiV1PickupsPickupIDOrdersOrderIDPut(this.pickupId, this.orderId, order).subscribe(
+        () => {
+          this.router.navigate(['/pickups', this.pickupId])
+        },
+        (error) => {
+          this.error = "Oops... something went wrong :("
+          console.log(error.message)
+        })
     }
   }
 }

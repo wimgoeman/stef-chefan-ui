@@ -1,3 +1,4 @@
+<div *ngIf="error" class="alert alert-danger" role="alert">{{error}}</div>
 <form *ngIf="!loading" #pickupForm="ngForm">
     <div class="d-flex d-flex-row justify-content-between">
         <h2>Pickup for {{pickupFormData.date.format('dddd MMMM Do')}}</h2>

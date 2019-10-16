@@ -10,9 +10,8 @@ import { PickupFormComponent } from './pickup-form/pickup-form.component';
 import { MomentDateAdapter } from './moment-date-adapter';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
-import { Configuration } from 'api-generated';
+import { Configuration, ProductsService, PickupsService } from 'api-generated';
 import { OrderFormComponent } from './order-form/order-form.component';
-import { PickupsService } from 'api-generated/api/pickups.service';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -48,7 +47,12 @@ import { JwtInterceptor } from './_helpers/jwt.interceptor';
     },
     {
       provide: PickupsService,
-      useFactory: (httpClient: HttpClient) => new PickupsService(httpClient, "http://localhost:8080", new Configuration({})),
+      useFactory: (httpClient: HttpClient) => new PickupsService(httpClient, environment.apiUrl, null),
+      deps: [HttpClient]
+    },
+    {
+      provide: ProductsService,
+      useFactory: (httpClient: HttpClient) => new ProductsService(httpClient, environment.apiUrl, null),
       deps: [HttpClient]
     },
     {

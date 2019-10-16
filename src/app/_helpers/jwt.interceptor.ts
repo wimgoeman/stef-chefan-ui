@@ -9,8 +9,7 @@ export class JwtInterceptor implements HttpInterceptor {
     constructor(private authService: AuthService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log("intercepting... " + request.url)
-        
+       
         let currentUser = this.authService.user;
         if (currentUser) {
             return new Observable<HttpEvent<any>>(
