@@ -27,7 +27,7 @@ const routes: Routes = [
     ...canActivate(() => redirectUnauthorizedTo(['login']))
   },
   {
-    path: 'pickups/:pickupId/orders',
+    path: 'pickups/:pickupId/items',
     component: PickupDetailsComponent,
     ...canActivate(() => redirectUnauthorizedTo(['login']))
   },
