@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { OrderFormComponent } from './order-form/order-form.component';
 import { canActivate, redirectUnauthorizedTo} from '@angular/fire/auth-guard';
 import { LoginComponent } from './login/login.component';
+import { PickupDetailsComponent } from './pickup-details/pickup-details.component';
 
 
 const redirectToLogin = redirectUnauthorizedTo(['login'])
@@ -23,6 +24,11 @@ const routes: Routes = [
   {
     path: 'pickups/:pickupId/orders/:orderId',
     component: OrderFormComponent,
+    ...canActivate(redirectToLogin)
+  },
+  {
+    path: 'pickups/:pickupId/orders',
+    component: PickupDetailsComponent,
     ...canActivate(redirectToLogin)
   },
   {

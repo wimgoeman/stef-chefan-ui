@@ -2,8 +2,7 @@
 <form *ngIf="!loading" #pickupForm="ngForm">
     <div class="d-flex d-flex-row justify-content-between">
         <h2>Pickup for {{pickupFormData.date.format('dddd MMMM Do')}}</h2>
-        <h2><span
-            class="badge badge-secondary">{{pickupFormData.status}}</span></h2>
+        <h2><span class="badge badge-secondary">{{pickupFormData.status}}</span></h2>
     </div>
     <div class="d-flex d-flex-row">
         <div class="flex-fill">
@@ -39,7 +38,10 @@
     </div>
 
     <div class="flex-fill p-2">
-        <a class="btn btn-primary" *ngIf="!creating" role="button" [routerLink]="['/pickups', pickupFormData.id, 'orders', 'new']">Place
+        <a class="btn btn-primary m-1" *ngIf="!creating" role="button"
+            [routerLink]="['/pickups', pickupFormData.id, 'orders', 'new']">Place
             order</a>
+        <a class="btn btn-primary m-1" *ngIf="!creating" role="button"
+            [routerLink]="['/pickups', pickupFormData.id, 'orders']">Pickup details</a>
     </div>
 </form>

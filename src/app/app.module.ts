@@ -19,6 +19,7 @@ import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { environment } from '../environments/environment';
 import { LoginComponent } from './login/login.component';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
+import { PickupDetailsComponent } from './pickup-details/pickup-details.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { JwtInterceptor } from './_helpers/jwt.interceptor';
     PickupFormComponent,
     HomeComponent,
     OrderFormComponent,
-    LoginComponent
+    LoginComponent,
+    PickupDetailsComponent
   ],
   imports: [
     BrowserModule,
