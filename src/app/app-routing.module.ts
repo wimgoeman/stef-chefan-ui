@@ -8,28 +8,28 @@ import { LoginComponent } from './login/login.component';
 import { PickupDetailsComponent } from './pickup-details/pickup-details.component';
 
 
-const redirectToLogin = redirectUnauthorizedTo(['login'])
+// const redirectToLogin = () => redirectUnauthorizedTo(['login'])
 
 const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    ...canActivate(redirectToLogin)
+    ...canActivate(() => redirectUnauthorizedTo(['login']))
   },
   {
     path: 'pickups/:id',
     component: PickupFormComponent,
-    ...canActivate(redirectToLogin)
+    ...canActivate(() => redirectUnauthorizedTo(['login']))
   },
   {
     path: 'pickups/:pickupId/orders/:orderId',
     component: OrderFormComponent,
-    ...canActivate(redirectToLogin)
+    ...canActivate(() => redirectUnauthorizedTo(['login']))
   },
   {
     path: 'pickups/:pickupId/orders',
     component: PickupDetailsComponent,
-    ...canActivate(redirectToLogin)
+    ...canActivate(() => redirectUnauthorizedTo(['login']))
   },
   {
     path: 'login',
@@ -39,7 +39,7 @@ const routes: Routes = [
     path: '',
     redirectTo: '/home',
     pathMatch: 'full',
-    ...canActivate(redirectToLogin)
+    ...canActivate(() => redirectUnauthorizedTo(['login']))
   }
 ];
 
