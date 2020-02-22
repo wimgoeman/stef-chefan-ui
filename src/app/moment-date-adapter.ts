@@ -1,6 +1,8 @@
 import { NgbDateAdapter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
+import { Injectable } from "@angular/core";
 
+@Injectable()
 export class MomentDateAdapter implements NgbDateAdapter<moment.Moment> {
     fromModel(value: moment.Moment): NgbDateStruct {
         if (!value) {
